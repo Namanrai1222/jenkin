@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/Namanrai1222/jenkin.git'
             }
         }
         stage('Build and test') {

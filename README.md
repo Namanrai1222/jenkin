@@ -1,6 +1,6 @@
-# Java Maven Jenkins Demo
+# Jenkins HTML Form Assessment
 
-A Java 25 application built with Maven and tested with JUnit. The repository also contains a static [contact form](index.html) and automated HTML structure tests. Jenkins runs the root `Jenkinsfile`, publishes Java test results, and archives the JAR.
+This repository contains a static [contact form](index.html) with Name, Email, Contact Number, and Submit fields. [Automated tests](tests/test_form.py) check the form structure. The [Jenkinsfile](Jenkinsfile) fetches this repository from GitHub, runs the HTML tests and the existing Java/Maven tests, publishes JUnit results, and archives the JAR.
 
 ## Build locally
 
@@ -17,8 +17,8 @@ The application prints `Hello, Jenkins!`. The JUnit tests verify the greeting be
 ## Connect Jenkins to GitHub
 
 1. Install Jenkins LTS with JDK 25 and the Pipeline, Git, and JUnit plugins. Make JDK 25, Maven, and Python 3 available to the Jenkins process.
-2. Create a Pipeline job. Choose Pipeline script from SCM, select Git, enter this repository HTTPS clone URL, set branch `*/main`, and set Script Path to `Jenkinsfile`.
-3. Save and select Build Now. Jenkins runs Maven, publishes JUnit results, and archives the JAR.
+2. Create a Pipeline job. Choose Pipeline script from SCM, select Git, enter `https://github.com/Namanrai1222/jenkin.git`, set branch `*/main`, and set Script Path to `Jenkinsfile`.
+3. Save and select **Build Now**. Open the build's **Console Output** and check for `BUILD SUCCESS`, `Ran 3 tests`, and `Finished: SUCCESS`. The **Test Result** page should show four passing Java tests.
 4. The pipeline polls GitHub about every five minutes while Jenkins is running. This works for a local Jenkins server. For immediate builds, expose Jenkins securely and configure a GitHub webhook at `https://YOUR_JENKINS_HOST/github-webhook/`.
 
 Do not put GitHub credentials in this repository. Public repositories can be cloned without credentials. For a private repository, add a Jenkins credential and select it in the job Git SCM settings.
