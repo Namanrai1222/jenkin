@@ -16,23 +16,40 @@ The application prints `Hello, Jenkins!`. The JUnit tests verify the greeting be
 
 ## Run the form with Docker
 
-With Docker Desktop running, build and start the static website:
+Install Docker Desktop (or Docker Engine on Linux) and start it. In a terminal, clone this repository and build the image:
 
 ```sh
+git clone https://github.com/Namanrai1222/jenkin.git
+cd jenkin
+docker --version
+docker info --format '{{.ServerVersion}}'
+docker pull nginxinc/nginx-unprivileged:1.28.0-alpine
 docker build -t jenkins-html-form:1.0 .
 docker run -d --name jenkins-html-form -p 127.0.0.1:8080:8080 jenkins-html-form:1.0
 ```
 
-Open `http://127.0.0.1:8080/` in a browser. To check or stop the container:
+Open `http://127.0.0.1:8080/` in a browser. Check that the container is running and the page responds:
 
 ```sh
 docker ps --filter name=jenkins-html-form
 curl -I http://127.0.0.1:8080/
+```
+
+To stop and later restart the same container:
+
+```sh
+docker stop jenkins-html-form
+docker start jenkins-html-form
+```
+
+To remove it before creating a new container with the same name:
+
+```sh
 docker stop jenkins-html-form
 docker rm jenkins-html-form
 ```
 
-The container serves the same demonstration form; submitting it does not send or store data.
+The image is built on your computer; a Docker Hub account is not needed. The container serves the same demonstration form; submitting it does not send or store data.
 
 ## Connect Jenkins to GitHub
 
