@@ -14,6 +14,26 @@ python3 -m unittest discover -s tests -v
 
 The application prints `Hello, Jenkins!`. The JUnit tests verify the greeting behavior. The Python tests verify that the form contains labeled, required Name, Email, and Contact Number fields and a Submit button. Open `index.html` in a browser to view the form. Submission displays a demo message; no data is sent or stored.
 
+## Run the form with Docker
+
+With Docker Desktop running, build and start the static website:
+
+```sh
+docker build -t jenkins-html-form:1.0 .
+docker run -d --name jenkins-html-form -p 127.0.0.1:8080:8080 jenkins-html-form:1.0
+```
+
+Open `http://127.0.0.1:8080/` in a browser. To check or stop the container:
+
+```sh
+docker ps --filter name=jenkins-html-form
+curl -I http://127.0.0.1:8080/
+docker stop jenkins-html-form
+docker rm jenkins-html-form
+```
+
+The container serves the same demonstration form; submitting it does not send or store data.
+
 ## Connect Jenkins to GitHub
 
 1. Install Jenkins LTS with JDK 25 and the Pipeline, Git, and JUnit plugins. Make JDK 25, Maven, and Python 3 available to the Jenkins process.
